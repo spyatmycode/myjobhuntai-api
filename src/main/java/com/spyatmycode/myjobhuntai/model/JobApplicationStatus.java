@@ -5,5 +5,6 @@ public enum JobApplicationStatus{
     APPLIED,
     REJECTED,
     INTERVIEW,
-    GHOSTED
+    GHOSTED,
+    OFFER
 }

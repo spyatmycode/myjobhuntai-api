@@ -5,6 +5,7 @@ import com.spyatmycode.myjobhuntai.dto.auth.SignupRequestDTO;
 import com.spyatmycode.myjobhuntai.model.CandidateUserDetails;
 import com.spyatmycode.myjobhuntai.service.AuthService;
 import com.spyatmycode.myjobhuntai.service.CandidateProfileService;
+import com.spyatmycode.myjobhuntai.service.EmailService;
 import com.spyatmycode.myjobhuntai.service.JwtAuthenticationFilter;
 import com.spyatmycode.myjobhuntai.service.JwtService;
 
@@ -14,6 +15,7 @@ import lombok.extern.slf4j.Slf4j;
 import java.util.HashMap;
 import java.util.Map;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.authentication.AuthenticationManager;
@@ -32,6 +34,8 @@ public class AuthController {
     private final AuthService authService;
     private final AuthenticationManager authenticationManager;
     private final JwtService jwtService;
+    @Autowired
+    private EmailService emailService; // Inject
 
 
     public AuthController(
@@ -59,6 +63,8 @@ public class AuthController {
 
         log.info("Signing up email={} done token={}", requestBody.email(), requestBody.password(), token);
 
+        emailService.sendLoginNotification(requestBody.email());
+
         return ApiResponse.success(HttpStatus.CREATED, null, "Account created successful", token);
 
     }
@@ -82,6 +88,8 @@ public class AuthController {
         String token = jwtService.generateToken(userDetails, extraClaims);
 
         log.info("Logging email={} done token={}", requestBody.email(), requestBody.password(), token);
+
+        emailService.sendLoginNotification(requestBody.email());
 
         return ApiResponse.success(HttpStatus.OK, null, "Account login successful", token);
     }
