@@ -1,0 +1,61 @@
+HELP.md
+target/
+.mvn/wrapper/maven-wrapper.jar
+!**/src/main/**/target/
+!**/src/test/**/target/
+
+### STS ###
+.apt_generated
+.classpath
+.factorypath
+.project
+.settings
+.springBeans
+.sts4-cache
+
+### IntelliJ IDEA ###
+.idea
+*.iws
+*.iml
+*.ipr
+
+### NetBeans ###
+/nbproject/private/
+/nbbuild/
+/dist/
+/nbdist/
+/.nb-gradle/
+build/
+!**/src/main/**/build/
+!**/src/test/**/build/
+
+### VS Code ###
+.vscode/
+
+# 1. SECRETS (Critical)
+.env
+.env.local
+
+# 2. Build Output (Maven)
+target/
+!.mvn/wrapper/maven-wrapper.jar
+!**/src/main/**/target/
+
+# 3. Logs
+*.log
+
+# 4. IDE Settings (IntelliJ / VS Code / Eclipse)
+.idea/
+*.iws
+*.iml
+*.ipr
+.vscode/
+.classpath
+.project
+.settings/
+.sts4-cache/
+bin/
+
+# 5. OS Files (Mac/Windows)
+.DS_Store
+Thumbs.db
