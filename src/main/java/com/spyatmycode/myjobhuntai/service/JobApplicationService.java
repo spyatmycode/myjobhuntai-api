@@ -51,6 +51,7 @@ public class JobApplicationService {
         newJobApplication.setJobDescription(jobApplicationDTO.jobDescription().strip());
         newJobApplication.setJobTitle(jobApplicationDTO.jobTitle().strip());
         newJobApplication.setStatus(jobApplicationDTO.status());
+        newJobApplication.setExtraNotes(jobApplicationDTO.extraNotes());
 
         jobApplicationRepository.save(newJobApplication);
 
@@ -104,6 +105,28 @@ public class JobApplicationService {
     public Iterable<JobApplication> getAllJobApplications(){
         return jobApplicationRepository.findAll();
     }
+
+    public JobApplication updateJobApplication(
+    Long jobApplicationId,
+    Long candidateId,
+    NewJobApplicationDTO updateDTO
+) {
+    log.info("Updating job application ID {} for candidate ID {}", jobApplicationId, candidateId);
+    
+    JobApplication existingApplication = findByCandidateIdAndJobApplicationId(candidateId, jobApplicationId);
+    
+    existingApplication.setCompanyName(updateDTO.companyName().strip());
+    existingApplication.setJobTitle(updateDTO.jobTitle().strip());
+    existingApplication.setJobDescription(updateDTO.jobDescription().strip());
+    existingApplication.setStatus(updateDTO.status());
+    existingApplication.setExtraNotes(updateDTO.extraNotes());
+    
+    jobApplicationRepository.save(existingApplication);
+    
+    log.info("Successfully updated job application ID {}", jobApplicationId);
+    
+    return existingApplication;
+}
 
     
 }

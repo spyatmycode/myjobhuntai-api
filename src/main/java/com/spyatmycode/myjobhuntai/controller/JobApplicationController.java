@@ -73,6 +73,33 @@ public class JobApplicationController {
         return ApiResponse.success(HttpStatus.OK,  jobApplicationService.updateJobApplicationStatus(id, jobApplicationStatus), "Updated successfully", null);
     };
 
+    @PutMapping("/update-job-application/{id}")
+public ResponseEntity<ApiResponse<JobApplication>> updateJobApplication(
+    @PathVariable Long id,
+    @RequestBody @Valid NewJobApplicationDTO updateDTO
+) {
+    Long candidateId = ((CandidateUserDetails) SecurityContextHolder.getContext()
+        .getAuthentication().getPrincipal()).getCandidateId();
+
+    if (!updateDTO.candidateId().equals(candidateId)) {
+        log.info("candidate id={} and body candidate id={}", candidateId, updateDTO.candidateId());
+        throw new BadCredentialsException("You cannot perform this request for this user. Profile may not exist or wrong token.");
+    }
+
+    JobApplication updatedApplication = jobApplicationService.updateJobApplication(
+        id, 
+        candidateId, 
+        updateDTO
+    );
+
+    return ApiResponse.success(
+        HttpStatus.OK, 
+        updatedApplication, 
+        "Updated successfully", 
+        null
+    );
+}
+
     @GetMapping("/get-job-application/{id}")
     public ResponseEntity<ApiResponse<JobApplication>> getJobApplication(
         @PathVariable Long id

@@ -47,6 +47,7 @@ CREATE TABLE IF NOT EXISTS job_applications (
     job_description TEXT NOT NULL,
     status VARCHAR(100) NOT NULL,
     ai_cover_letter TEXT,
+    extra_notes TEXT DEFAULT NULL
     
     candidate_id BIGINT NOT NULL,
     -- Explicit Foreign Key

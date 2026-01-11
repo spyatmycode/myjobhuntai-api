@@ -31,6 +31,9 @@ public class JobApplication {
     @Column("candidate_id")
     private Long candidateId;
 
+    @Column("extra_notes")
+    private String extraNotes;
+
     @CreatedDate
     private LocalDateTime createdAt;
 
@@ -55,6 +58,15 @@ public class JobApplication {
         return id;
     }
 
+    public void setStatus(String status) {
+        this.status = status;
+    }
+    public String getExtraNotes() {
+        return extraNotes;
+    }
+    public void setExtraNotes(String extraNotes) {
+        this.extraNotes = extraNotes;
+    }
     public void setId(Long id) {
         this.id = id;
     }

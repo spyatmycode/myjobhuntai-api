@@ -5,6 +5,7 @@ import com.spyatmycode.myjobhuntai.model.JobApplicationStatus;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
 
+
 public record NewJobApplicationDTO(
     @NotBlank(
         message = "Company name cannot be blank"
@@ -17,7 +18,8 @@ public record NewJobApplicationDTO(
     ) String jobDescription,
     String aiCoverLetter,
     @NotNull JobApplicationStatus status,
-    @NotNull(message = "Candidate ID cannot be null") Long candidateId
+    @NotNull(message = "Candidate ID cannot be null") Long candidateId,
+     String extraNotes
 ){
 
 }
